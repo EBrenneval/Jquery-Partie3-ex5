@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="jquery-2.2.4.js"></script>
+  <link rel="stylesheet" href="style.css"/>
+  <title>Partie3 ex5</title>
+</head>
+<body>
+  <div id ="carré"></div>
+  <script>
+  var marginLeft = 0;
+  var marginTop = 0;
+  $("body").keypress(function(e){  // recup du body, fction pour appui sur tch
+    if(e.which == "113"){  //e.wich = savoir quel touch est pressée; 113 = touch q
+       if (marginLeft==0) {    // si il disparait a gauche
+         marginLeft =1180;    // il apparait a droite
+       }else {
+         marginLeft -=10;     // calcul la prochaine position du carré, 10px
+       }
+      $("#carré").css("margin-left",marginLeft + "px")   // fait bouger le carré a la prochaine position
+    }
+    else if (e.which == "100") {   // 100 = la touche D
+      if (marginLeft==1180) {   //il part a droite
+        marginLeft=0;           // il revient a gauche
+      }else{       // sinon
+        marginLeft += 10; // il se deplace de 10px
+      }
+      $("#carré").css("margin-left",marginLeft + "px")
+    }
+    else if (e.which == "122") {  // 122 correspond a la touche Z
+      if (marginTop==0) {
+        marginTop=540;
+      }else{
+        marginTop -= 10;
+      }
+      $("#carré").css("margin-top",marginTop + "px")
+    }
+    else if (e.which == "115") {  // 115 correspond a la touch S
+      if (marginTop==540) {
+        marginTop=0;
+      }else{
+        marginTop += 10;
+      }
+      $("#carré").css("margin-top",marginTop + "px")
+    }
+  })
+
+/* pour connaitre chiffre a mettre au e.wich faire alert(e.which)*/
+  </script>
+</body>
+</html>
