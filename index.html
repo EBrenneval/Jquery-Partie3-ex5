@@ -1,53 +1,76 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <script src="jquery-2.2.4.js"></script>
-  <link rel="stylesheet" href="style.css"/>
-  <title>Partie3 ex5</title>
+ <meta charset="utf-8">
+ <link rel="stylesheet" href="style.css"/>
+ <title>jquery-2</title>
 </head>
 <body>
-  <div id ="carré"></div>
-  <script>
-  var marginLeft = 0;
-  var marginTop = 0;
-  $("body").keypress(function(e){  // recup du body, fction pour appui sur tch
-    if(e.which == "113"){  //e.wich = savoir quel touch est pressée; 113 = touch q
-       if (marginLeft==0) {    // si il disparait a gauche
-         marginLeft =1180;    // il apparait a droite
-       }else {
-         marginLeft -=10;     // calcul la prochaine position du carré, 10px
+ <div id="carre"></div>
+ <label for="nom"></label><input type="text" name="square" value="" id="titre" />
+ <script
+ src="https://code.jquery.com/jquery-2.2.4.min.js"
+ integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+ crossorigin="anonymous">
+ </script>
+ <script>
+ $(function(){
+   //je déclare 2 variables dans lesquels je donne la hauteur et la largeur de la fenêtre au chargement de la page
+   var largeur_fenetre = $(window).width();
+   var hauteur_fenetre = $(window).height();
+   //quand je clique sur le formulaire je récupère valeur imput et la fonction démarre
+   $('#titre').keyup(function(e){
+     //je déclare 2 variables pour récupérer la position du carré (haut et gauche)
+     var top = $('#carre').offset().top;
+     var left = $('#carre').offset().left;
+     //sert à contrôler dans le firebug la position réelle du carré
+     console.log($('#carre').offset());
+     //je déclare la condition switch (selon la touche pressée)
+     switch (e.keyCode){
+       //la touche 39 qui correspond à la flèche sur le clavier droite
+       case 39:
+       // si le coté gauche du carré n'est pas au bord droit de la fenetre
+       if (left < (largeur_fenetre-200)){
+         //alors on deplace le carré vers la droite
+         $('#carre').css('margin-left', '+=10');
        }
-      $("#carré").css("margin-left",marginLeft + "px")   // fait bouger le carré a la prochaine position
-    }
-    else if (e.which == "100") {   // 100 = la touche D
-      if (marginLeft==1180) {   //il part a droite
-        marginLeft=0;           // il revient a gauche
-      }else{       // sinon
-        marginLeft += 10; // il se deplace de 10px
-      }
-      $("#carré").css("margin-left",marginLeft + "px")
-    }
-    else if (e.which == "122") {  // 122 correspond a la touche Z
-      if (marginTop==0) {
-        marginTop=540;
-      }else{
-        marginTop -= 10;
-      }
-      $("#carré").css("margin-top",marginTop + "px")
-    }
-    else if (e.which == "115") {  // 115 correspond a la touch S
-      if (marginTop==540) {
-        marginTop=0;
-      }else{
-        marginTop += 10;
-      }
-      $("#carré").css("margin-top",marginTop + "px")
-    }
-  })
+       //sinon si le coté gauche du carré arrive au bord droit de la fenetre
+       else{
+         //alors on remet le carré à gauche
+         $('#carre').css('margin-left','0');
+       }
+       break;
+       case 37:
 
-/* pour connaitre chiffre a mettre au e.wich faire alert(e.which)*/
-  </script>
+       if(left>0){
+         $('#carre').css('margin-left', '-=10');
+       }
+       else{
+         $('#carre').css('margin-left',largeur_fenetre-200);
+       }
+       break;
+       case 40:
+       if(top < (hauteur_fenetre-200)){
+         $('#carre').css('margin-top', '+=10');
+       }
+       else{
+         $('#carre').css('margin-top','0');
+       }
+       break;
+       case 38:
+       if(top>0){
+         $('#carre').css('margin-top', '-=10');
+       }
+       else{
+         $('#carre').css('margin-top',hauteur_fenetre-200);
+       }
+       default:
+     }
+});
+});
+/*Construisez une page html avec un carré et un champ de saisie de texte dans un formulaire.
+Lorsque l'on appuie sur une touche de direction le carré se déplace de 10 px dans la bonne direction.
+Quand le bloc atteint un bord de la page, il doit réaparaître de l'autre côté.*/
+</script>
 </body>
 </html>
